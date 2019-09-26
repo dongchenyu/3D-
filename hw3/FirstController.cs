@@ -24,6 +24,8 @@ public class FirstController : MonoBehaviour, ISceneController
     public bool BoatMove = false;
     public GameObject PlayerMove = null;
     public GameObject pos1, pos2;
+    public Judge judge;
+
     void Awake()
     {
         director = SSDirector.GetInstance();
@@ -125,7 +127,10 @@ public class FirstController : MonoBehaviour, ISceneController
                 numOfDevils++;
             }
         }
-        if (numOfDevils > numOfPriests && numOfPriests != 0) state = GameState.fail;
+        if (numOfDevils > numOfPriests && numOfPriests != 0) {
+            state = GameState.fail;
+        }
+
     }
     public void CheckState2(List<GameObject> direction)
     {
@@ -153,7 +158,11 @@ public class FirstController : MonoBehaviour, ISceneController
                 numOfDevils++;
             }
         }
-        if (numOfDevils > numOfPriests && numOfPriests != 0) state = GameState.fail;
+        if (judge.over(numOfPriests, numOfDevils))
+        {
+            state = GameState.fail;
+        }
+        
     }
     public void Restart()
     {
